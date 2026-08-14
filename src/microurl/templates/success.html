@@ -1,0 +1,28 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="result-box">
+    <label class="result-label">✓ Success! Your short link is ready</label>
+
+    <div class="result-row">
+        <input type="text" class="result-url" value="{{ short_url }}" readonly>
+        <button class="copy-btn" onclick="copyLink(this)">Copy</button>
+    </div>
+
+    <p class="original-url-label">
+        Redirects to:
+        <a href="{{ original_url }}" class="original-url-link" target="_blank" rel="noopener noreferrer">{{ original_url }}</a>
+    </p>
+
+    <a class="home_b2" href="/">Shorten Another</a>
+</div>
+
+<script>
+function copyLink(btn) {
+    const input = btn.previousElementSibling;
+    navigator.clipboard.writeText(input.value);
+    const original = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(() => { btn.textContent = original; }, 1500);
+}
+</script>
+{% endblock content %}
