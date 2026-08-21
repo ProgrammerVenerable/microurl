@@ -230,3 +230,9 @@ p {
     font-size: 13px;
     color: #c0392b;
 }
+
+.expiry-note {
+    margin-top: 12px;
+    font-size: 13px;
+    color: #888;
+}

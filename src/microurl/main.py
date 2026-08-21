@@ -34,6 +34,10 @@ def home(request: Request, short_url: str | None = None):
         {"short_url": short_url}
     )
 
+@app.get("/health")
+def health():
+    return {"status": "ok"}
+
 @app.post("/", response_class=HTMLResponse)
 @limiter.limit("5/minute")
 def compute_ShortURL(request: Request, db: Annotated[Session, Depends(get_db)], u: str = Form(...)):
@@ -66,7 +70,7 @@ def show_success(request: Request, short_code: str, db: Annotated[Session, Depen
     if not code:
         return templates.TemplateResponse(request, "not_found.html", status_code=status.HTTP_404_NOT_FOUND)
 
-    microURL = f"http://127.0.0.1:8000/{short_code}"
+    microURL = f"{request.base_url}{short_code}"
     return templates.TemplateResponse(request, "success.html", {"short_url": microURL, "original_url": code.original_url})
 
 
