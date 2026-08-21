@@ -2,6 +2,8 @@
 
 A simple URL shortening web application built with FastAPI, SQLAlchemy, SQLite, and Jinja2.
 
+[🚀 Live Demo](https://microurl-mrde.onrender.com/)
+
 MicroURL takes a long URL and generates a unique short URL that redirects users to the original address.
 
 ## Features
@@ -19,45 +21,16 @@ MicroURL takes a long URL and generates a unique short URL that redirects users 
 
 The application follows this basic flow:
 
-User enters a URL# MicroURL
-
-A simple URL shortening web application built with **FastAPI**, **SQLAlchemy**, **SQLite**, and **Jinja2**.
-
-MicroURL takes a long URL and generates a unique short URL that redirects users to the original address.
-
-## Features
-
-* Shorten long URLs into 6-character short codes
-* Validate URLs before storing them
-* Store shortened URLs in a SQLite database
-* Redirect short URLs to their original destinations
-* Detect short-code collisions before creating a URL
-* Display a success page with the generated short URL
-* Copy the generated URL using the browser's Clipboard API
-* Custom error pages for invalid or non-existent URLs
-
-## How It Works
-
-The application follows this basic flow:
-
-```text
-User enters a URL
-       ↓
-POST /
-       ↓
-Validate the URL
-       ↓
-Generate a unique short code
-       ↓
-Save URL + short code to SQLite
-       ↓
-Redirect to success page
-       ↓
-User visits /{short_code}
-       ↓
-Look up short code in database
-       ↓
-Redirect to original URL
+```mermaid
+flowchart TD
+    A[User enters a URL] --> B[POST /]
+    B --> C[Validate the URL]
+    C --> D[Generate a unique short code]
+    D --> E[Save URL + short code to PostgreSQL]
+    E --> F[Redirect to success page]
+    F --> G[User visits /short_code]
+    G --> H[Look up short code in database]
+    H --> I[Redirect to original URL]
 ```
 
 ### Example
@@ -71,7 +44,7 @@ https://www.example.com/some/very/long/url
 MicroURL generates something like:
 
 ```text
-http://127.0.0.1:8000/aB72xQ
+https://microurl-mrde.onrender.com/aB72xQ
 ```
 
 When the short URL is visited, MicroURL looks up `aB72xQ` in the database and redirects the user to the original URL.
@@ -165,7 +138,7 @@ The short code is used as the primary key, ensuring that two database records ca
 When a user visits a shortened URL such as:
 
 ```text
-http://127.0.0.1:8000/aB72xQ
+https://microurl-mrde.onrender.com/aB72xQ
 ```
 
 the application searches the database for `aB72xQ`.
@@ -206,6 +179,9 @@ Through the project, I practiced:
 * Database constraints
 * Understanding potential race conditions
 * Managing Python dependencies with uv
+* Deploying a FastAPI application
+* Connecting an application to a production PostgreSQL database
+* Using environment variables for configuration
 
 ## Future Improvements
 
@@ -215,17 +191,17 @@ Possible improvements include:
 * Add click/visit statistics
 * Add custom short codes
 * Add a REST API alongside the web interface
-* Add rate limiting
-* Add authentication and user accounts
-* Move configuration into environment variables
-* Deploy the application to a public server
 * Add automated tests
 * Improve collision handling using database exceptions
 * Add API documentation and examples
+* Improve the frontend and user experience
 
 ## Status
 
 **Completed — Learning Project**
 
 MicroURL was created to practice building a small full-stack backend application with FastAPI and SQLAlchemy.
+
+The project is now publicly deployed and available to try through the
+[Live Demo](https://microurl-mrde.onrender.com/)
 
